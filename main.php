@@ -9,37 +9,19 @@ $passerror =false;
 $errors = array(); //empty errors array everytimes page loads 
 require_once ("includes/library.php");
 $pdo =connectDB();
-$user =$_SESSION['username'];
+$user =$_SESSION['user'];
 
-
+//get the form values for the current list store in a session variable
+$_SESSION['id'] = $_POST['listid']?? null;
+$_SESSION['read_title'] = $_POST['read_title']?? null;
+$_SESSION['read_pswd'] = $_POST['read_pswd']?? null;
+$_SESSION['read_desc'] = $_POST['read_desc']?? null;
+$_SESSION['read_expiry'] = $_POST['read_expiry']?? null;
 $errors = array();
 
-//if user creates a list
-if (isset($_POST['create'])){
-    //Initialize functions for List
-    $delete =$_POST['delete']?? null;
-    $edit=$_POST['edit']?? null;
-    $hide=$_POST['hide']?? null;
-   
-
-    //validate password (more work needed)
-    if(strlen($pswd) < 6){
-       // $errors['pswdstrength']= true;
-       echo "Please chooses stronger password";
-       var_dump(strlen($pswd));
-    }
-
-    //Hash password provided by user. Wirte user input to database
-    $hash = password_hash($pswd, PASSWORD_DEFAULT); 
-    $query = "INSERT into wList values (?,?,?,?,?,null)"; 
-    $pdo->prepare($query)->execute([$user,$title, $desc, $hash, $expiry]);
-    
-     
-
-}
-
+//delete list item 
 function delete(){
-   $row=$_POST['deleteid'];
+   $row=$_POST['listid'];
     $pdo =connectDB();        
     $query=("DELETE from wList where list_ID = ?");
     $stmt=$pdo->prepare($query);
@@ -47,14 +29,47 @@ function delete(){
     
   }
 
+  //edit list item
 function edit(){
-
+  header("Location:update.php");
+  exit();
 }
 
+// view items in list 
+function viewListItems(){
+  header("Location:items.php");
+  exit();
+  
+}
+
+
+
+//Delete a list form display 
   if(isset($_POST['delete'])){
     delete();
   }
 
+//View list items in a list / go to create new list item 
+if(isset($_POST['items'])){
+  viewListItems();
+
+}
+
+//Create a new list 
+if(isset($_POST['createNew'])){
+  header("Location:cList.php"); //Redirect to create List page 
+  exit();
+}
+
+//edit list information
+if (isset($_POST['edit'])){
+  //request password -- // if password matches allow edit 
+  $_SESSION['title'] = $_POST['title'];
+  $_SESSION['title'] = $_POST['title'];
+  header("Location:update.php");
+  
+  exit();
+}
 ?>
 
 
@@ -67,95 +82,98 @@ function edit(){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/d634eaee72.js" crossorigin="anonymous"></script>
     <title>Wishlist</title>
-    <link rel="stylesheet" href="master.css" />
+    <link rel="stylesheet" href="styles/master.css" />
 </head>
 <header>
 <?php include "nav.php";?>
-
 </header>
 
+<h1> Wish List </h1>
+<h2> Welcome : <?php echo $user ?> </h2>
 <body>
 
-<?= "The current lists are\n" ?>
-    <div>
+<form id="create" method="POST"  enctype="multipart/form-data">
+ <button type="create" name="createNew">Create new wishlist </button>
+</form>
+
+
+<h3> <?= "The current lists are\n" ?></h3>
+    
     <ul>
     <!-- Query the database to select all lists for display -->
-    <?php $stmt=$pdo->query("SELECT username, title, description, expiry,list_ID FROM wList  ");
+<?php  $stmt=$pdo->query("SELECT  title, description,passkey, expiry,list_ID FROM wList where username = '$user' ");
     
-  //$row=$stmt->fetch();
-    foreach ($stmt as $row): //loop through result set 
+   
 
-         $id=$pdo->query("SELECT username  FROM wList"); ?>
-     <li>
+ 
+  foreach ($stmt as $row): // loop through result set  
+
+      $id=$pdo->query("SELECT username  FROM wList"); ?>
+  
+     <div class="list"><li>
          <!--Display data for the list -->
       <?php 
-            $_SESSION['rowid'] = $row['list_ID']; // Get the row id for this list 
+
+      //Get values for table columns and store in session variables 
+            $_SESSION['rowid'] = $row['list_ID']; 
+            $_SESSION['data1'] = $row['title']; 
+            $_SESSION['data2'] = $row['passkey'];
+            $_SESSION['data3'] = $row['description'];
+            $_SESSION['data4'] = $row['expiry'];
             
+
+           
+
+
+       //Display list items for user to see 
             echo nl2br("Title:- ". $row['title']); 
             echo nl2br("\nDescription:- ". $row['description']);
             echo nl2br("\nList Expiry Date:-   ". $row ['expiry']);
-            
+           
       
-            
       ?>
-      <!-- Buttons for  edit and delete -->
+      <!-- Buttons for  edit and delete view and hide  list items  -->
+    
     <form id="list" method="POST" action="<?php htmlentities($_SERVER['PHP_SELF'])?>" enctype="multipart/form-data">
     <div>
-    <button name="delete"><i class="fa-solid fa-trash"></i></button>
-    <button name="edit"><i class="fa-solid fa-edit"></i></button>
-    <button name ="hide"><i class="fa-solid fa-eye-slash"></i></i></button>
-    <button name="items"><i class="fa-solid fa-list"></i></button>
-    <input type="hidden" name="deleteid" id="hidden" value= "<?php echo $_SESSION['rowid']; ?>" 
+    <button name="delete" value= "<?php echo $_SESSION['delete']; ?>"> Delete List  <i class= "fa-solid fa-trash "></i></button>
+
+    <button name="edit"> Edit List  <i class="fa-solid fa-edit"></i></button>
+  
+    <button name ="hide">Hide List  <i class="fa-solid fa-eye-slash"></i></i></button>
+    
+    <button name="items">View Items <i class="fa-solid fa-list"></i></button>
+    
+    <input type="hidden" name="listid" id="hidden" value= "<?php echo $_SESSION['rowid']; ?>" >
+
+    <input type="hidden" name="read_title" id="hidden" value= "<?php echo $_SESSION['data1']; ?>" >
+
+    <input type="hidden" name="read_pswd" id="hidden" value= "<?php echo $_SESSION['data2']; ?>" >
+
+    <input type="hidden" name="read_desc" id="hidden" value= "<?php echo $_SESSION['data3']; ?>" >
+
+    <input type="hidden" name="read_expiry" id="hidden" value= " $_SESSION['data4']" >
     </div>
     </form>
+<?php
+    
+?>
+    
+    
 
-    
-    
-    
      </li>
+  </div>
      <?php endforeach; ?>
      
     <ul>
-    <div> 
     
-
-<h2> Create a new Wishlist </h2>
-<form id="Wish" method="POST" action="<?php htmlentities($_SERVER['PHP_SELF'])?>" enctype="multipart/form-data">
- <fieldset>
-<!-- Set Title for list Item -->
-<div>
-<div>
-    <label for="title">Title </label>
-    <input type ="text" name ="title" value="<?=$title?>" required /> 
     
-</div>
+ 
 
-<!-- List Description -->
-<div>
-   <label for="Description">Desc</label>
-   <textarea name="desc"  cols="17" rows="10" placeholder="Description of items" value="<?=$desc?>" required /> </textarea>
-</div>
 
-<!-- Set visibility for list items for public viewing -->
-<div>
-   <label for="Password secure">Password</label>
-   <input type="password" name="password"   placeholder="password" value="<?=$pswd?>" required /></input>
-</div>
 
-<!-- Set Expiry for list  -->
-<div>
-<div>
-    <label for=Expiry >Exipiry</label>
-    <input type="date" name ="expiry" value="<?=$expiry?>" required />
-</div>
- </fieldset>
 
- <!-- Submit data and create List  -->
-<div>
- <div id="buttons">
-    <button type="create" name="create">Create</button>
-</div>
-</form>
+
 
 </body>
 
