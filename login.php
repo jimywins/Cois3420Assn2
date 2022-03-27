@@ -1,7 +1,8 @@
 <?php
+
 $user=$_POST['username']??null;
 $password=$_POST['password']??null;
-include 'include/library.php';//Data base connection
+include 'includes/library.php';//Data base connection
 $errors = array();
 $pdo=connectDB();
 
@@ -13,7 +14,7 @@ if(isset($_POST['login']))
 {
  //Check if username does exist
 
- if(!isset($user) || strlen($user) === 0){
+ if(!isset($user) || strlen($user) == 0){
     $errors['login'] = true;
   }
   else
@@ -29,8 +30,8 @@ if(isset($_POST['login']))
   {
     if(password_verify($pass,$row['password'])){
         session_start();
-        $_SESSION['username']=$user;
-        header("Location:homepage.php"); //Redirect to Homepage
+        $_SESSION['user']=$user;
+        header("Location:main.php"); //Redirect to Homepage
       }
       else{
         $errors['login'] =true;
