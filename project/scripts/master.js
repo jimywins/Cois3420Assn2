@@ -68,7 +68,7 @@ function mover(ev){
             hideitem.innerText="hidden";
             }
     
-            else if(stylethis.classList.contains("hiddenList"))
+            else if(stylethis.classList.contains("hiddenlist"))
             {
                 stylethis.classList.add("list");
                 stylethis.classList.remove("hiddenlist");
