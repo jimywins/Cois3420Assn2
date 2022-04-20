@@ -1,0 +1,275 @@
+@import "reset.css";
+
+:root {
+  /* set variables */
+  --light: #F7F5F2;
+  --dark: #373d3f;
+  --background: #DDDDDD;
+
+  /* fallback for browsers that don't support variables */
+  color: #373d3f;
+  color: var(--dark);
+  background-color: #F7F5F2;
+  background-color: var(--background);
+
+  font-family: 'Roboto', sans-serif;
+}
+
+#loginform {
+  background-color: var(--light);
+  color: var(--dark);
+
+
+}
+
+section#loginform {
+
+  background-color: var(--light);
+
+  border: solid;
+  border-radius: 15px;
+  border-width: 1px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  inline-size: min-content;
+
+  margin: auto;
+  margin-top: 2em;
+  padding: 2em;
+
+  font-weight: bold;
+
+}
+
+section#loginform input {
+  width: 20vw;
+
+  border: none;
+  border-bottom: solid;
+  border-width: 3px;
+  border-color: var(--light);
+
+  padding: 1em;
+
+  margin: 0 auto;
+
+  color: var(--dark);
+}
+
+
+/*Login Button*/
+section#loginform div button {
+  width: 100%;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 93%);
+
+  border-radius: 20px;
+  border: none;
+
+  color: var(--light);
+
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+/* Navbar Stylings */
+
+nav {
+
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 93%);
+
+  padding: 1em;
+
+  color: var(--light);
+
+  display: flex;
+
+  justify-content: right;
+}
+
+nav h1 {
+  font-size: 4em;
+  font-weight: bold;
+
+  margin-right: auto;
+  padding-left: 0.25em;
+  padding-top: 0.1em;
+
+}
+
+nav ul {
+  display: flex;
+
+  margin-right: 2em;
+
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+nav ul li {
+  padding: 2em;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--light);
+}
+
+section div span {
+  color: red;
+}
+
+/*
+body {
+font-size: 100%;
+background-color: rgb(189, 131, 57);
+}
+h1 ,h2 {
+    background-color:rgb(236, 188, 28);
+    padding:1%;
+    border-radius: 5px;
+   
+}
+
+code, a.visited{
+color:#716fb0;
+}
+
+
+
+.list  {
+    background-color: rgb(236, 188, 28);
+    border-radius: 5px;
+    border: 0.2em solid rgb(246, 248, 245);
+    margin:20px;
+    padding:30px;
+    width:30%;
+    
+}
+
+.hiddenlist{
+
+  background-color: rgb(172, 171, 170);
+    border-radius: 5px;
+    border: 0.2em solid rgb(246, 248, 245);
+    margin:20px;
+    padding:30px;
+    width:30%;
+}
+
+h1,h2,h3{
+  color:rgb(93, 73, 17);
+}
+
+
+.itemlist li{
+  background-color: rgb(236, 188, 28);
+  border-radius: 5px;
+  border: 0.2em solid rgb(246, 248, 245);
+  margin:20px;
+  padding:30px;
+  width:30%;
+}
+
+button{
+  background-color:rgba(232, 199, 93, 0.621);
+  border: 0.1em solid ghostwhite;
+  border-radius: 5px;
+  color: white;
+  text-align: center; 
+  padding:1em;
+  
+}
+
+#title{
+  font-style: italic;
+  font-size: larger;
+  
+}
+
+
+div.scroll {
+  background-color: rgb(121, 116, 93);
+  overflow-y: auto;
+}
+
+div.scroll a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scroll a:hover  {
+  background-color: rgb(255, 212, 21);
+}
+button:hover{
+  background-color:blanchedalmond;
+  color:black;
+}
+
+/*Styling for errors*/
+
+/*
+
+.error {
+  color: red;
+  display: block;
+  margin: 0.5em;
+  border: 0.1em solid rgb(246, 248, 245);
+  width:30%;
+  background-color: rgb(255, 212, 21);;
+  text-align: center;
+}
+
+
+.hidden {
+  display: none;
+}
+/* items that have not been bought */
+/*
+
+.notbought{
+background-color:yellow;
+}
+
+/* Styling for items that have been bought */
+/*
+
+.bought{
+background-color:aquamarine;
+  border-radius: 5px;
+  margin:20px;
+  padding:30px;
+  width:30%;
+}
+    
+/*styling for the title of each wishlist */
+
+/*
+.title{
+  border-radius: 5px;
+  margin:20px;
+  width: auto;
+  color: rgb(255, 251, 251);
+  font-size: large;
+  text-align: center;
+  padding:0.5em;
+  
+}
+
+
+
+    
