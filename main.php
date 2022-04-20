@@ -5,11 +5,13 @@ $title = $_POST['title']?? null; //add the title to post array
 $desc = $_POST['desc']?? null; // add descriptin to post array 
 $pswd = $_POST['password']?? null; // add password to post array
 $expiry = $_POST['expiry']?? null; //add expiry date to post array 
-$passerror =false;
+$passerror =false; //password error 
 $errors = array(); //empty errors array everytimes page loads 
 require_once ("includes/library.php");
 $pdo =connectDB();
-$user =$_SESSION['user'];
+$user =$_SESSION['user']; //store user data in session variable 
+$url = 'https://loki.trentu.ca/~phillipgrummett/3420/project/publicList.php?user=$user'; //url variable for sharing link 
+$hidelist = array();
 
 //get the form values for the current list store in a session variable
 $_SESSION['id'] = $_POST['listid']?? null;
@@ -17,13 +19,27 @@ $_SESSION['read_title'] = $_POST['read_title']?? null;
 $_SESSION['read_pswd'] = $_POST['read_pswd']?? null;
 $_SESSION['read_desc'] = $_POST['read_desc']?? null;
 $_SESSION['read_expiry'] = $_POST['read_expiry']?? null;
+
+$hidelist = $_SESSION['id'];
+
 $errors = array();
+
+
+//hide list item
+function hide(){
+  $row=$_POST['listid'];
+  $pdo =connectDB();    
+  $query=("DELETE from wList where list_ID = ? ");
+  $stmt=$pdo->prepare($query);
+}
+
+
 
 //delete list item 
 function delete(){
    $row=$_POST['listid'];
     $pdo =connectDB();        
-    $query=("DELETE from wList where list_ID = ?");
+    $query=("DELETE from wList where list_ID = ? ");
     $stmt=$pdo->prepare($query);
     $stmt->execute([$row]);
     
@@ -43,9 +59,15 @@ function viewListItems(){
 }
 
 
+//Delete a list form display 
+if(isset($_POST['hide']) ){
+
+ hide();
+}
 
 //Delete a list form display 
-  if(isset($_POST['delete'])){
+  if(isset($_POST['delete']) ){
+
     delete();
   }
 
@@ -81,8 +103,14 @@ if (isset($_POST['edit'])){
    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/d634eaee72.js" crossorigin="anonymous"></script>
+    <script defer src="scripts/master.js"></script>
+   
     <title>Wishlist</title>
     <link rel="stylesheet" href="styles/master.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <header>
 <?php include "nav.php";?>
@@ -90,6 +118,10 @@ if (isset($_POST['edit'])){
 
 <h1> Wish List </h1>
 <h2> Welcome : <?php echo $user ?> </h2>
+
+<p>Share your wishlist with friends and family  <button  id="url" value="https://loki.trentu.ca/~johnuja/3420/project/pvList.php?user=<?php echo $user?>" >Share your wishlist </button> <p> or copy from: <span>https://loki.trentu.ca/~johnuja/3420/project/pvList.php?user=<?php echo $user?></span>
+
+
 <body>
 
 <form id="create" method="POST"  enctype="multipart/form-data">
@@ -97,18 +129,26 @@ if (isset($_POST['edit'])){
 </form>
 
 
-<h3> <?= "The current lists are\n" ?></h3>
-    
-    <ul>
+<h3> <?=  "The current lists are\n" ?></h3>
+
+    <ul class="listitems">
     <!-- Query the database to select all lists for display -->
-<?php  $stmt=$pdo->query("SELECT  title, description,passkey, expiry,list_ID FROM wList where username = '$user' ");
+<?php 
+
+//if (!isset($_POST['hide'])){
+$stmt =$pdo->query("SELECT  title, description,passkey, expiry,list_ID, created FROM wList where username = '$user' ");
+
     
+//}
+//else 
+//$stmt =$pdo->query("SELECT  title, description,passkey, expiry,list_ID, created FROM wList where username = '$user' and list_ID != '$hidelist'  ");
    
 
  
   foreach ($stmt as $row): // loop through result set  
 
-      $id=$pdo->query("SELECT username  FROM wList"); ?>
+     // $id=$pdo->query("SELECT username  FROM wList");
+      ?>
   
      <div class="list"><li>
          <!--Display data for the list -->
@@ -120,27 +160,30 @@ if (isset($_POST['edit'])){
             $_SESSION['data2'] = $row['passkey'];
             $_SESSION['data3'] = $row['description'];
             $_SESSION['data4'] = $row['expiry'];
-            
+            // date created not included becuase we dont want the user to be able to update that 
+            ?> 
 
            
 
 
-       //Display list items for user to see 
-            echo nl2br("Title:- ". $row['title']); 
-            echo nl2br("\nDescription:- ". $row['description']);
-            echo nl2br("\nList Expiry Date:-   ". $row ['expiry']);
-           
+       <!-- Display list items for user to see -->
+
+<p class="title"> <?php echo  "Title:- ". $row['title'];  ?></p>
+       <p> <?php echo "Description:- ". $row['description'];?> </p>
+       <p> <?php "List Expiry Date:-   ". $row ['expiry'];  ?></p>
+       <p> <?php echo "This list was created on ".$row['created'] ?></P>
+
+
+
       
-      ?>
+    
       <!-- Buttons for  edit and delete view and hide  list items  -->
     
     <form id="list" method="POST" action="<?php htmlentities($_SERVER['PHP_SELF'])?>" enctype="multipart/form-data">
-    <div>
-    <button name="delete" value= "<?php echo $_SESSION['delete']; ?>"> Delete List  <i class= "fa-solid fa-trash "></i></button>
+    <section class="ui">
+    <button name="delete" id="dltb"> Delete List  <i class= "fa-solid fa-trash "></i></button>
 
     <button name="edit"> Edit List  <i class="fa-solid fa-edit"></i></button>
-  
-    <button name ="hide">Hide List  <i class="fa-solid fa-eye-slash"></i></i></button>
     
     <button name="items">View Items <i class="fa-solid fa-list"></i></button>
     
@@ -152,12 +195,11 @@ if (isset($_POST['edit'])){
 
     <input type="hidden" name="read_desc" id="hidden" value= "<?php echo $_SESSION['data3']; ?>" >
 
-    <input type="hidden" name="read_expiry" id="hidden" value= " $_SESSION['data4']" >
-    </div>
+    <input type="hidden" name="read_expiry" id="hidden" value= "<?php $_SESSION['data4']; ?>" >
+  </section>
     </form>
-<?php
-    
-?>
+    <button name ="hide" id="hide">Hide List  <i class="fa-solid fa-eye-slash"></i></i></button>
+
     
     
 
@@ -166,7 +208,7 @@ if (isset($_POST['edit'])){
      <?php endforeach; ?>
      
     <ul>
-    
+  
     
  
 
@@ -181,4 +223,5 @@ if (isset($_POST['edit'])){
 <!-- (Includes/footer) -->
 <div>
 </footer>
-</html>
+
+
