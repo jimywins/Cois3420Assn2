@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+
+if(!isset($_SESSION['username'])){ //Checks if user is login otherwise redirect to login page
+
+  header("Location:login.php");
+  exit();
+}
+
 $errors = array();
 $title = $_POST['title']?? null; //add the title to post array
 $desc = $_POST['desc']?? null; // add descriptin to post array 
@@ -29,7 +37,7 @@ $errors = array();
 function hide(){
   $row=$_POST['listid'];
   $pdo =connectDB();    
-  $query=("DELETE from wList where list_ID = ? ");
+  $query=("UPDATE from wList SET visable='FALSE' where list_ID = ? ");//Update code to make it visable or not and not deleting entry
   $stmt=$pdo->prepare($query);
 }
 

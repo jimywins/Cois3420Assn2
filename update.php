@@ -1,5 +1,11 @@
 <?php 
 session_start();
+if(!isset($_SESSION['username'])){ //Make sure of login
+    header("Location:login.php");
+    exit();
+}
+
+
 $title=$_SESSION['listtitle']?? null;
 $desc= $_SESSION['desc']?? null;
 $pswd= $_SESSION['pswd']?? null;

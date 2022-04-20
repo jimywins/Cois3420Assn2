@@ -5,8 +5,7 @@ $password=$_POST['password']??null;
 include 'includes/library.php';//Data base connection
 $errors = array();
 $pdo=connectDB();
-$_SESSION['user'] = $user;
- $_SESSION['pswd'] = $password ??null;  //- to auto fill uhhashed password in update field? 
+
 
 
 

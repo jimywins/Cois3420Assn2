@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(!isset($_SESSION['username'])){//Check if there is a user logged in
+    header("Location:login.php");
+    exit();
+}
+
 $title = $_POST['title']?? null; //add the title to post array
 $desc = $_POST['desc']?? null; // add descriptin to post array 
 $pswd = $_POST['password']?? null; // add password to post array
