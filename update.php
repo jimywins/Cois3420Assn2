@@ -50,6 +50,9 @@ if (isset($_POST['update'])){
     <script defer src="scripts/master.js"></script>
     <title>Wishlist</title>
     <link rel="stylesheet" href="styles/master.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <header>
 <?php include "nav.php";?>
