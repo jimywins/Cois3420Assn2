@@ -39,6 +39,7 @@ $errors['pass']=TRUE;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/master.css" />
     <title>Password Change</title>
+    <script defer src="scripts/passchange.js"></script>
     </head>
 
 
