@@ -1,15 +1,13 @@
 <?php
 
 session_start();
-if(!isset($_SESSION['username'])){//Check if there is a user 
-    header("Location:login.php");
-    exit();
-}
-include 'include/library.php';
-$NP=$_POST['NP'];
-$CP=$_POST['CP'];
+
+include 'includes/library.php';
+$NP=$_POST['NP']?? null;
+$CP=$_POST['CP']?? null;
 $errors = array();
-$user=$_SESSION['username'];
+$user=$_SESSION['username']?? null;
+$pdo =connectDB();
 
 
 if(isset($_POST['submit'])){//Button is set
@@ -37,9 +35,10 @@ $errors['pass']=TRUE;
 <html lang="en">
     <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/d634eaee72.js" crossorigin="anonymous"></script>
+    <script defer src="scripts/master.js"></script>
     <link rel="stylesheet" href="styles/master.css" />
     <title>Password Change</title>
-    <script defer src="scripts/passchange.js"></script>
     </head>
 
 
@@ -49,11 +48,14 @@ $errors['pass']=TRUE;
     
     <div> 
     <label for ="NP">New password </label> 
-    <input type="text" id="Np" name="Np" size="40"/>
+    <input type="password" id="Np" name="Np" size="40"/>
+    <i class="fa-solid fa-eye-slash" id="toggleNew"></i>
     </div>
     <div> 
     <label for ="CP">Confrim password </label> 
-    <input type="text" id="CP" name="CP" size="40"/>
+    <input type="password" id="CP" name="CP" size="40"  />
+    <i class="fa-solid fa-eye-slash" id="toggleConfirm"></i>
+    
     </div>
     <div >    
     <button type="submit" name="submit">Submit</button>
@@ -63,3 +65,4 @@ $errors['pass']=TRUE;
     </div>
 </form>
     </body>
+
