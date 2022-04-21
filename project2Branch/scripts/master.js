@@ -183,10 +183,32 @@ if (buyy != null){
   
 
 
+//XHMTP stuff
+const view =document.querySelectorAll("item");
+for(let i=0;i<view.length;i++){
+    
+view[i].addEventListener("submit",(ev)=>{
+    const xhr= new XMLHttpRequest();//AJAX stuff
+    var itemValue = '<%=session["id"]%>';
+    xhr.open("GET","buy.php ?item="+item.value);
+    xhr.addEventListener("checklist.php",(ev)=>{
+        if(xhr.response ==200){//Actually responded
+
+            if(xhr.response=="no"|| xhr.response==null){ //No item of that value exist
+                alert("Item does not exist");
+            }
+            else{
+                alert(xhr.response);
+            }
+        }
 
 
+    });//End of XHR event listenr 
 
+    
+});
 
+}//End of Loop
 
 
 
