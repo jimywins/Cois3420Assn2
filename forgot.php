@@ -41,6 +41,7 @@ if(isset($_POST['submit'])){//Button is set
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/master.css" />
     <title>Forgot Login</title>
+    <script defer src="scripts/forgot.js"></script>
 </head>
 
 <body>

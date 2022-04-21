@@ -11,13 +11,13 @@ let error=false;
      let error=false;
 
      const userinput=document.getElementById("username");
-     const usererror=userinput.nextElementSibling;
-    if(usererror ==null){ //Nothing was entered
+  
+    if(usererror.value ==null){ //Nothing was entered
         error=true;
     }
      const passinput=document.getElementById("password");
-     const passerror=passinput.nextElementSibling;
-    if(passerror ==null){
+     
+    if(passerror.value ==null){ //Check if empty
         error=true;
     }
 
