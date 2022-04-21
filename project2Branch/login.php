@@ -58,6 +58,7 @@ if(isset($_POST['login']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/master.css" />
     <title>Login</title>
+    <script defer src="scripts/login.js"></script>
   </head>
 
 
