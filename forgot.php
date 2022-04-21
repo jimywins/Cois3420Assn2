@@ -63,3 +63,5 @@ if(isset($_POST['submit'])){//Button is set
 </form>
 
 </body>
+    
+    </html>
