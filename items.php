@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['username'])){ //Make sure of login
+    header("Location:login.php");
+    exit();
+}
 $row=$_SESSION['id']; // item id from List table 
 
 $title = $_POST['title']?? null; //add the title to post array
