@@ -5,10 +5,14 @@ $password=$_POST['password']??null;
 include 'includes/library.php';//Data base connection
 $errors = array();
 $pdo=connectDB();
+$_SESSION['user'] = $user;
+ $_SESSION['pswd'] = $password ??null;  //- to auto fill uhhashed password in update field? 
 
 
-
-
+ if(isset($_POST['register'])) //Redirects to register php page
+ {
+  header("Location:register.php");
+ }
 if(isset($_POST['Forgot'])) //Redirects to forgot php page
 {
  header("Location:forgot.php");
@@ -70,13 +74,14 @@ if(isset($_POST['login']))
   <body>
   <section id="loginform">
       <!-- Form box for login page -->
+    <h1>LOGIN</h1>
     <form id ="login" method="post">
     <div> <label for ="username">Username </label> 
     <input type="text" id="username" name="username" size="40"/>
     
     </div>
     <div>
-    <label for="password">Password:</label> 
+    <label for="password">Password</label> 
     <input type="password" id="password" name="password" size="40" />
     
     </div>
@@ -87,6 +92,10 @@ if(isset($_POST['login']))
     </div>
     <div id="login1">    
     <button type="submit" name="Forgot">Forgot Password?</button>
+    </div>
+    <p>or</p>
+    <div id="login1">    
+    <button type="submit" name="register">Register Now</button>
     </div>
     <div>
       <span class="error <?=!isset($errors['login']) ? 'hidden' : "";?>">Your username or password was invalid</span>
