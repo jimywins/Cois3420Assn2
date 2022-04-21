@@ -172,7 +172,8 @@ if (buyy != null){
     console.log(buyy);
     buyy.forEach((bought)=>{
         bought.addEventListener("submit", (ev) => {
-            //Do  xml http request for styling bought item here 
+        let info= "<span class='buy' id='buy'>You have added this item to your list</span>";
+        buyy.parentElement.insertAdjacentHTML("beforeend",info);
 
     })
 })
