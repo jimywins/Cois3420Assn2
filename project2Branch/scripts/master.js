@@ -184,7 +184,7 @@ if (buyy != null){
   
 
 
-//XHMTP stuff
+//XHMTP request for view
 const view =document.querySelectorAll("item");
 for(let i=0;i<view.length;i++){
     
