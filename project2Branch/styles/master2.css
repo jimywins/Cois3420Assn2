@@ -1,0 +1,205 @@
+
+:root {
+  /* set variables */
+  --light: #F7F5F2;
+  --dark: #373d3f;
+  --background: #DDDDDD;
+
+  /* fallback for browsers that don't support variables */
+  color: #373d3f;
+  color: var(--dark);
+  background-color: #F7F5F2;
+  background-color: var(--background);
+
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+
+
+body {
+  background-color: var(--background);
+}
+  
+h1 {
+  font-size: 3em;  
+  padding-left: 1em;
+
+
+}
+  
+h2 {
+    font-size: 2em; 
+    padding-left: 1em; 
+}
+  
+  .list  {
+      background-color: var(--light);
+      border-radius: 5px;
+      border: 1px solid var(--dark);
+      margin:20px;
+      padding:30px;
+      width:35%;
+      
+  }
+  
+  .hiddenlist{
+  
+    background-color: var(--background);
+      border-radius: 5px;
+      border: 1px solid var(--dark);
+      margin:20px;
+      padding:30px;
+      width:30%;
+  }
+  
+  input:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  
+  button:hover {
+  
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  
+  }
+  
+  .itemlist li{
+    background-color: var(--background);
+    border-radius: 5px;
+    border: 0.2em solid var(--light);
+    margin:20px;
+    padding:30px;
+    width:30%;
+  }
+
+section {
+  display: flex;
+  width: auto;
+}
+  
+  button{
+    padding: 1em;
+  
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 93%);
+  
+    border-radius: 20px;
+    border: none;
+  
+    color: var(--light);;
+  
+    font-weight: bold;
+    font-size: 0.75em;
+    text-transform: uppercase;
+
+    margin: 1em;
+  }
+  
+  button:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+  div.scroll {
+    background-color: var(--background);
+    overflow-y: auto;
+  }
+  
+  div.scroll a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+  
+
+  
+  /*Styling for errors*/
+  
+  .error {
+    color: red;
+    display: block;
+    margin: 0.5em;
+    border: 0.1em solid var(--light);
+    width:30%;
+    background-color: var(--background);
+    text-align: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  /* items that have not been bought */
+  .notbought{
+  background-color:var(--background);
+  }
+  
+  /* Styling for items that have been bought */
+  .bought{
+  background-color: var(--background);
+    border-radius: 5px;
+    margin:20px;
+    padding:30px;
+    width:30%;
+  }
+      
+  /*styling for the title of each wishlist */
+  .title{
+    border-radius: 5px;
+    margin: 20px;
+    width: auto;
+    color: var(--dark);
+    font-size: 2em;
+    text-align: left;
+   
+    
+  }
+
+   
+/* Navbar Stylings */
+
+nav {
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 93%);
+
+
+
+  color: var(--light);
+
+  display: flex;
+  justify-content: right;
+}
+
+nav h1 {
+  font-size: 4em;
+  font-weight: bold;
+
+  margin-right: auto;
+  padding-left: 0.25em;
+
+}
+
+nav ul {
+  display: flex;
+
+  margin-right: 2em;
+
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+nav ul li {
+  padding: 2em;
+  padding-top: 3em;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--light);
+}
+
+nav ul li a:hover {
+  text-decoration: none;
+  color: var(--dark);
+}
