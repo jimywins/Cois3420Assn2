@@ -152,15 +152,14 @@ if (deleteb !=null){
    
     deleteb.forEach((deleted)=>{
     deleted.addEventListener("click",(ev)=>{
-var dltconfirm = confirm("Do you want to delete this list (maybe input the query to run in here) ?");
+var dltconfirm = confirm("Do you want to delete this list  ?");
 
 if (dltconfirm == true ){// if the user confims delete item 
-// do xml http request for delte here 
 return true;
 }
 
 else  {
-return false; // dont do anything
+return false; 
 }
 })
     })
@@ -180,9 +179,7 @@ if (buyy != null){
 }
 
 
-//-----Also need to view details wish item with js----
   
-
 
 //XHMTP request for view
 const view =document.querySelectorAll("item");
