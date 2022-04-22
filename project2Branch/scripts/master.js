@@ -184,8 +184,7 @@ if (buyy != null){
 //XHMTP request for view
 const view =document.querySelectorAll("item");
 for(let i=0;i<view.length;i++){
-    
-   if (view != null){
+if (view !=null){
 view[i].addEventListener("submit",(ev)=>{
     const xhr= new XMLHttpRequest();//AJAX stuff
     var itemValue = '<%=session["id"]%>';
@@ -200,14 +199,16 @@ view[i].addEventListener("submit",(ev)=>{
                 alert(xhr.response);
             }
         }
+        console.log(view);
 
 
     });//End of XHR event listenr 
-}
+
     
 });
-
+}
 }//End of Loop
+
 
 
 
